@@ -6,7 +6,7 @@
 /*   By: jaqribei <jaqribei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 22:04:53 by jaqribei          #+#    #+#             */
-/*   Updated: 2024/04/18 12:57:56 by jaqribei         ###   ########.fr       */
+/*   Updated: 2024/04/18 16:03:01 by jaqribei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,4 +99,3 @@ t_matrix	calc_inverse_matrix(t_matrix m)
 	inv = multiply_matrix_by_scalar(cof_transpose, 1 / det);
 	return (inv);
 }
-

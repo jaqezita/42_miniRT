@@ -6,7 +6,7 @@
 /*   By: jaqribei <jaqribei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 11:36:10 by jaqribei          #+#    #+#             */
-/*   Updated: 2024/04/18 11:40:21 by jaqribei         ###   ########.fr       */
+/*   Updated: 2024/04/18 16:02:51 by jaqribei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,5 @@
 int	main(int argc, char **argv)
 {
 	check_args(argc, argv);
-	
 	return (0);
 }
