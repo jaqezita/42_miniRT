@@ -6,7 +6,7 @@
 #    By: jaqribei <jaqribei@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/18 12:28:36 by jaqribei          #+#    #+#              #
-#    Updated: 2024/04/18 15:56:06 by jaqribei         ###   ########.fr        #
+#    Updated: 2024/04/18 16:05:57 by jaqribei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,14 +53,14 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)%.c
 	@mkdir -p $(@D)
 	@$(CC) $(FLAGS) $(INCLUDES) -c $< -o $@ 
 
-$(NAME): $(SRC_OBJ)
-	@$(CC) $(FLAGS) $(SRC_OBJ) ./libs/libft/libft.a -o $(NAME) $(INCLUDES) -lm
-
 #******************************************************************************#
 #									TARGETS									   #
 #******************************************************************************#
 
 all: libft $(NAME)
+
+$(NAME): $(SRC_OBJ)
+	@$(CC) $(FLAGS) $(SRC_OBJ) ./libs/libft/libft.a -o $(NAME) $(INCLUDES) -lm
 
 libft:
 	@make -C ./libs/libft
