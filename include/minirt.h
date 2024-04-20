@@ -6,7 +6,7 @@
 /*   By: jaqribei <jaqribei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 17:13:22 by jaqribei          #+#    #+#             */
-/*   Updated: 2024/04/18 15:44:50 by jaqribei         ###   ########.fr       */
+/*   Updated: 2024/04/20 00:15:30 by jaqribei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct s_tuple
 	double		w;
 }				t_tuple;
 
-typedef struct	s_matrix
+typedef struct s_matrix
 {
 	int			size;
 	double		grid[4][4];
@@ -67,12 +67,16 @@ double		calc_determinant(int size, t_matrix m);
 double		calc_minor(t_matrix m, int row, int col);
 t_matrix	calc_inverse_matrix(t_matrix m);
 double		calc_cofactor(t_matrix m, int row, int col);
+t_matrix	create_translation_matrix(double x, double y, double z);
+t_matrix	create_scaling_matrix(double x, double y, double z);
+t_matrix	create_rotation_matrix_x(double rad);
+t_matrix	create_rotation_matrix_y(double rad);
+t_matrix	create_rotation_matrix_z(double rad);
 
 //rays
 
 //validations
 int			check_file_extension(char *file_name);
 void		check_args(int argc, char **argv);
-
 
 #endif

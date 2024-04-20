@@ -6,7 +6,7 @@
 #    By: jaqribei <jaqribei@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/18 12:28:36 by jaqribei          #+#    #+#              #
-#    Updated: 2024/04/18 16:05:57 by jaqribei         ###   ########.fr        #
+#    Updated: 2024/04/20 00:19:37 by jaqribei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,9 @@ src += $(addprefix matrices/, matrices_basic_operations.c \
 							matrices_create_structures.c \
 							matrices_special_operations.c \
 							matrices_tuples_operations.c)
+
+src += $(addprefix matrices_transformations/, creating_matrix_transformations.c\
+											create_shearing_matrix.c)
 
 #******************************************************************************#
 #									OBJECTS									   #
