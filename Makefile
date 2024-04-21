@@ -6,7 +6,7 @@
 #    By: jaqribei <jaqribei@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/18 12:28:36 by jaqribei          #+#    #+#              #
-#    Updated: 2024/04/20 00:19:37 by jaqribei         ###   ########.fr        #
+#    Updated: 2024/04/21 00:14:52 by jaqribei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ FLAGS = -g3 -Wall -Wextra -Werror
 #									PATH									   #
 #******************************************************************************#
 
-# LIBX		:= ./include/MLX42/build/libmlx42.a -ldl -lglfw -pthread -lm
+LIBX		:= ./libs/MLX42/build/libmlx42.a -ldl -lglfw -pthread -lm
 INCLUDES	:= -I ./include -I ./libs/libft -I ./libs/MLX42/include/MLX42
 SRC_DIR		:= src/
 OBJ_DIR		:= obj/
@@ -60,16 +60,16 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)%.c
 #									TARGETS									   #
 #******************************************************************************#
 
-all: libft $(NAME)
+all: libft mlx $(NAME)
 
 $(NAME): $(SRC_OBJ)
-	@$(CC) $(FLAGS) $(SRC_OBJ) ./libs/libft/libft.a -o $(NAME) $(INCLUDES) -lm
+	@$(CC) $(FLAGS) $(SRC_OBJ) ./libs/libft/libft.a -o $(NAME) $(INCLUDES) $(LIBX)
 
 libft:
 	@make -C ./libs/libft
 
 mlx:
-	@cmake ./MLX42 -B MLX42/build && make -C MLX42/build -j4
+	@cmake ./libs//MLX42 -B ./libs/MLX42/build && make -C ./libs/MLX42/build -j4
 
 clean:
 	@rm -f $(SRC_OBJ) 
