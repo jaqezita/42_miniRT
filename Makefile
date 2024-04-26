@@ -6,7 +6,7 @@
 #    By: jaqribei <jaqribei@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/18 12:28:36 by jaqribei          #+#    #+#              #
-#    Updated: 2024/04/21 00:14:52 by jaqribei         ###   ########.fr        #
+#    Updated: 2024/04/26 15:59:18 by jaqribei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,8 @@ src += $(addprefix matrices/, matrices_basic_operations.c \
 src += $(addprefix matrices_transformations/, creating_matrix_transformations.c\
 											create_shearing_matrix.c)
 
+src += $(addprefix parser/, manage_window.c)
+
 #******************************************************************************#
 #									OBJECTS									   #
 #******************************************************************************#
@@ -83,4 +85,10 @@ re: fclean all
 norm:
 	@norminette $(SRC) $(BONUS) $(HEADER) ./libs/libft
 
-.PHONY: all libft bonus clean fclean re
+gdb:
+	@gdb --tui --args ./$(NAME) example.rt
+
+valgrind: re
+	@valgrind --leak-check=full --show-leak-kinds=all --suppressions=.mlx.sup ./$(NAME) scenes/example.rt
+
+.PHONY: all libft bonus clean fclean re valgrind norm gdb mlx
