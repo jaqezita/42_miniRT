@@ -6,7 +6,7 @@
 /*   By: jaqribei <jaqribei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 17:13:22 by jaqribei          #+#    #+#             */
-/*   Updated: 2024/04/20 00:15:30 by jaqribei         ###   ########.fr       */
+/*   Updated: 2024/04/28 00:01:52 by jaqribei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,14 @@ t_matrix	create_rotation_matrix_z(double rad);
 //validations
 int			check_file_extension(char *file_name);
 void		check_args(int argc, char **argv);
+
+//window
+void		manage_window(void);
+
+//parser
+int		read_scene(char *file);
+void	split_scene_lines(int fd, char *file);
+void	print_scene_lines(char **line, char *file);
+
 
 #endif

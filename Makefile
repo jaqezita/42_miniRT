@@ -6,7 +6,7 @@
 #    By: jaqribei <jaqribei@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/18 12:28:36 by jaqribei          #+#    #+#              #
-#    Updated: 2024/04/26 15:59:18 by jaqribei         ###   ########.fr        #
+#    Updated: 2024/04/26 16:44:49 by jaqribei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,8 +85,8 @@ re: fclean all
 norm:
 	@norminette $(SRC) $(BONUS) $(HEADER) ./libs/libft
 
-gdb:
-	@gdb --tui --args ./$(NAME) example.rt
+gdb: re
+	@gdb --tui --args ./$(NAME) scenes/example.rt
 
 valgrind: re
 	@valgrind --leak-check=full --show-leak-kinds=all --suppressions=.mlx.sup ./$(NAME) scenes/example.rt
