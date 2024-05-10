@@ -6,101 +6,48 @@
 /*   By: jaqribei <jaqribei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 15:35:28 by jaqribei          #+#    #+#             */
-/*   Updated: 2024/05/10 14:27:27 by jaqribei         ###   ########.fr       */
+/*   Updated: 2024/05/10 18:57:44 by jaqribei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-// int	read_scene(char *file)
-// {
-// 	int fd;
-
-// 	fd = open(file, O_RDONLY);
-// 	if (fd < 0)
-// 	{
-// 		printf("Error\n");
-// 		exit(1);
-// 	}
-// 	return (fd);
-// }
-
-void	add_token(char *line)
+int	is_identifier(char *identifier)
 {
-	t_mini	*control;
-	t_token	*new;
-	t_token	*last;
-	
-	control = get_mini_control();
-	new = ft_calloc(1, sizeof(t_token));
-	if (!new)
-		exit(EXIT_FAILURE);
-	new->identifier = ft_strndup(line, 2);
-	new->args = ft_split(line + 2, ' ');
-	new->next = NULL;
-	if (!control->tokens)
-		control->tokens = new;
-	else
-	{
-		last = control->tokens;
-		while (last->next)
-			last = last->next;
-		last->next = new;
-	}
+	if (ft_strcmp(identifier, "A") == 0 || ft_strcmp(identifier, "C") == 0 \
+		|| ft_strcmp(identifier, "L") == 0 || ft_strcmp(identifier, "sp") == 0 \
+		|| ft_strcmp(identifier, "pl") == 0 || ft_strcmp(identifier, "cy") == 0)
+		return (1);
+	return (0);
 }
 
-void	process_type_token(char *line)
-{
-	if (ft_strchr(line, 'A'))
-		add_token(line);
-	if (ft_strchr(line, 'C'))
-		add_token(line);
-	if (ft_strchr(line, 'L'))
-		add_token(line);
-	if (ft_strnstr(line, "sp", ft_strlen(line)))
-		add_token(line);
-	if (ft_strnstr(line, "pl", ft_strlen(line)))
-		add_token(line);
-	if (ft_strnstr(line, "cy", ft_strlen(line)))
-		add_token(line);
-	return ;
-}
-
-void	free_tokens(void)
+void	validate_identifier(void)
 {
 	t_mini	*control;
 	t_token	*token;
-	t_token	*next;
 
 	control = get_mini_control();
 	token = control->tokens;
-	while (token)
+	while(token)
 	{
-		next = token->next;
-		ft_free_string_array(token->args);
-		free(token->identifier);
-		free(token);
-		token = next;
+		if (!is_identifier(token->identifier))
+		{
+			free_tokens();
+			exit(ft_printf("Error\n%s\n", "Invalid scene"));
+		}
+		token = token->next;
 	}
-	control->tokens = NULL;
 }
 
-void print_tokens(void)
+void	validate_scene(void)
 {
-    t_mini *control;
-    t_token *current;
+	t_mini	*control;
 
-    control = get_mini_control();
-    current = control->tokens;
-
-    while (current != NULL)
-    {
-        printf("Identifier: %s\n", current->identifier);
-        // Assuming args is a null-terminated array of strings
-        for (int i = 0; current->args[i] != NULL; i++)
-        {
-            printf("Arg %d: %s\n", i, current->args[i]);
-        }
-        current = current->next;
-    }
+	control = get_mini_control();
+	// if (process_type_token(line) == 0)
+	// {
+	// 	free_tokens();
+	// 	exit(ft_printf("Error\n%s\n", "Invalid scene"));
+	// }
+	validate_identifier();
 }
