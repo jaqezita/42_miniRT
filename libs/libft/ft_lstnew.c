@@ -6,13 +6,13 @@
 /*   By: jaqribei <jaqribei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 21:03:14 by jaqribei          #+#    #+#             */
-/*   Updated: 2023/08/07 02:59:05 by jaqribei         ###   ########.fr       */
+/*   Updated: 2024/04/30 22:52:15 by jaqribei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstnew(void *content)
+t_list	*ft_lstnew(char **content)
 {
 	t_list	*ptr;
 

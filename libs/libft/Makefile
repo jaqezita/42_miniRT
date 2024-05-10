@@ -6,7 +6,7 @@
 #    By: jaqribei <jaqribei@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/22 19:30:18 by jaqribei          #+#    #+#              #
-#    Updated: 2023/11/04 10:44:35 by jaqribei         ###   ########.fr        #
+#    Updated: 2024/05/10 14:16:14 by jaqribei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ SRC = ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c \
 	ft_numbers_bonus.c ft_ptr_bonus.c ft_str_chr_bonus.c \
 	ft_unsigned_number_bonus.c ft_check_specifier.c get_next_line.c \
 	ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c ft_lstadd_back.c ft_lstdelone.c \
-	ft_lstclear.c ft_lstiter.c ft_lstmap.c ft_strcmp.c ft_atol.c
+	ft_lstclear.c ft_lstiter.c ft_lstmap.c ft_strcmp.c ft_atol.c ft_free_string_array.c \ ft_strndup.c
 
 OBJ = $(SRC:%.c=%.o)
 

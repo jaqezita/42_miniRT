@@ -6,7 +6,7 @@
 #    By: jaqribei <jaqribei@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/18 12:28:36 by jaqribei          #+#    #+#              #
-#    Updated: 2024/04/26 16:44:49 by jaqribei         ###   ########.fr        #
+#    Updated: 2024/05/09 22:45:35 by jaqribei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ LIBX		:= ./libs/MLX42/build/libmlx42.a -ldl -lglfw -pthread -lm
 INCLUDES	:= -I ./include -I ./libs/libft -I ./libs/MLX42/include/MLX42
 SRC_DIR		:= src/
 OBJ_DIR		:= obj/
+MLX42		:= ./libs/MLX42/build/libmlx42.a
 
 #******************************************************************************#
 #									FILES									   #
@@ -46,7 +47,9 @@ src += $(addprefix matrices/, matrices_basic_operations.c \
 src += $(addprefix matrices_transformations/, creating_matrix_transformations.c\
 											create_shearing_matrix.c)
 
-src += $(addprefix parser/, manage_window.c)
+src += $(addprefix parser/, manage_window.c \
+							parser.c)
+
 
 #******************************************************************************#
 #									OBJECTS									   #
@@ -62,7 +65,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)%.c
 #									TARGETS									   #
 #******************************************************************************#
 
-all: libft mlx $(NAME)
+all: libft $(MLX42) $(NAME)
 
 $(NAME): $(SRC_OBJ)
 	@$(CC) $(FLAGS) $(SRC_OBJ) ./libs/libft/libft.a -o $(NAME) $(INCLUDES) $(LIBX)
@@ -70,25 +73,29 @@ $(NAME): $(SRC_OBJ)
 libft:
 	@make -C ./libs/libft
 
-mlx:
+$(MLX42):
 	@cmake ./libs//MLX42 -B ./libs/MLX42/build && make -C ./libs/MLX42/build -j4
 
 clean:
 	@rm -f $(SRC_OBJ) 
 	@make clean -C ./libs/libft
+	@make clean -C ./libs/MLX42/build
 
 fclean: clean
-	@rm -f $(NAME) $(BONUS_NAME) ./libs/libft/libft.a
+	@rm -f $(NAME) $(MLX42) ./libs/libft/libft.a
 
 re: fclean all 
 
 norm:
-	@norminette $(SRC) $(BONUS) $(HEADER) ./libs/libft
+	@norminette $(SRC) $(HEADER) ./libs/libft
 
 gdb: re
 	@gdb --tui --args ./$(NAME) scenes/example.rt
 
 valgrind: re
-	@valgrind --leak-check=full --show-leak-kinds=all --suppressions=.mlx.sup ./$(NAME) scenes/example.rt
+	@valgrind --leak-check=full --show-leak-kinds=all --suppressions=mlx.sup ./$(NAME) scenes/example.rt
+
+run: re
+	@./$(NAME) scenes/example.rt
 
 .PHONY: all libft bonus clean fclean re valgrind norm gdb mlx

@@ -6,7 +6,7 @@
 /*   By: jaqribei <jaqribei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 17:13:22 by jaqribei          #+#    #+#             */
-/*   Updated: 2024/04/28 00:01:52 by jaqribei         ###   ########.fr       */
+/*   Updated: 2024/05/10 14:25:19 by jaqribei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,19 @@ typedef struct s_matrix
 	double		grid[4][4];
 }				t_matrix;
 
+typedef struct s_token
+{
+	char		*identifier;
+	char		**args;
+	struct s_token	*next;
+}				t_token;
+
+typedef struct t_mini
+{
+	t_token		*tokens;
+}				t_mini;
+
+t_mini	*get_mini_control(void);
 //tuples
 t_tuple		create_tuple(double x, double y, double z, double w);
 t_tuple		create_point(double x, double y, double z);
@@ -83,9 +96,21 @@ void		check_args(int argc, char **argv);
 void		manage_window(void);
 
 //parser
-int		read_scene(char *file);
-void	split_scene_lines(int fd, char *file);
-void	print_scene_lines(char **line, char *file);
+int			read_scene(char *file);
+void		split_scene_lines(int fd, char *file);
+void		print_scene_lines(char **line, char *file);
+void		process_type(char *line);
+void		process_ambient(char *line);
+int			process_scene_file(char *file);
+void		process_camera(char *line);
+void		process_light(char *line);
+void		process_sphere(char *line);
+void		process_cylinder(char *line);
+void		process_plane(char *line);
+
+void	process_type_token(char *line);
+void	print_tokens(void);
+void	free_tokens(void);
 
 
 #endif

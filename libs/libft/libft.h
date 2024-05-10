@@ -6,7 +6,7 @@
 /*   By: jaqribei <jaqribei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 19:36:33 by jaqribei          #+#    #+#             */
-/*   Updated: 2023/11/04 20:23:41 by jaqribei         ###   ########.fr       */
+/*   Updated: 2024/05/10 14:14:23 by jaqribei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 typedef struct s_list
 {
-	void			*content;
+	char			**content;
 	struct s_list	*next;
 }t_list;
 
@@ -63,7 +63,7 @@ void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *c, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
-t_list	*ft_lstnew(void *content);
+t_list	*ft_lstnew(char **content);
 void	ft_lstadd_front(t_list **lst, t_list *new);
 int		ft_lstsize(t_list *lst);
 t_list	*ft_lstlast(t_list *lst);
@@ -74,6 +74,7 @@ void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 long	ft_atol(const char *nptr);
 int		ft_strcmp(char *s1, char *s2);
+char	*ft_strndup(const char *s, size_t n);
 
 // -*- get_next_line -*-
 char	*get_next_line(int fd);
@@ -105,5 +106,8 @@ int		ft_check_specifier_type(char format, va_list args);
 size_t	ft_unsigned_number(va_list args);
 int		ft_pointer(va_list args);
 int		ft_percent(char c);
+
+// -*- printf -*-
+void	ft_free_string_array(char **line);
 
 #endif
