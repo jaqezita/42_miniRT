@@ -6,7 +6,7 @@
 #    By: jaqribei <jaqribei@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/18 12:28:36 by jaqribei          #+#    #+#              #
-#    Updated: 2024/05/09 22:45:35 by jaqribei         ###   ########.fr        #
+#    Updated: 2024/05/10 15:45:02 by jaqribei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,8 @@ src += $(addprefix matrices_transformations/, creating_matrix_transformations.c\
 											create_shearing_matrix.c)
 
 src += $(addprefix parser/, manage_window.c \
-							parser.c)
+							parser.c \
+							tokenization.c)
 
 
 #******************************************************************************#
