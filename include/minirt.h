@@ -6,7 +6,7 @@
 /*   By: jaqribei <jaqribei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 17:13:22 by jaqribei          #+#    #+#             */
-/*   Updated: 2024/05/10 14:25:19 by jaqribei         ###   ########.fr       */
+/*   Updated: 2024/05/10 18:36:10 by jaqribei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ typedef struct s_matrix
 
 typedef struct s_token
 {
-	char		*identifier;
-	char		**args;
+	char			*identifier;
+	char			**args;
 	struct s_token	*next;
 }				t_token;
 
@@ -49,7 +49,7 @@ typedef struct t_mini
 	t_token		*tokens;
 }				t_mini;
 
-t_mini	*get_mini_control(void);
+t_mini		*get_mini_control(void);
 //tuples
 t_tuple		create_tuple(double x, double y, double z, double w);
 t_tuple		create_point(double x, double y, double z);
@@ -64,6 +64,7 @@ t_tuple		cross_product(t_tuple a, t_tuple b);
 double		vector_magnitude(t_tuple a);
 double		dot_product(t_tuple a, t_tuple b);
 int			check_tuple_equality(t_tuple a, t_tuple b);
+
 //matrices
 t_matrix	create_matrix(int size, double numbers[]);
 t_matrix	create_matrix_identity(int size);
@@ -107,10 +108,16 @@ void		process_light(char *line);
 void		process_sphere(char *line);
 void		process_cylinder(char *line);
 void		process_plane(char *line);
+void		validate_identifier(void);
 
-void	process_type_token(char *line);
-void	print_tokens(void);
-void	free_tokens(void);
+//tokens
+void		add_token(char *line);
+void		free_tokens(void);
+void		print_tokens(void);
+int			process_type_token(char *line);
+void		tokenize_scene(char *file);
+void		validate_scene(void);
+
 
 
 #endif
