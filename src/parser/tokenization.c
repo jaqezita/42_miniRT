@@ -6,7 +6,7 @@
 /*   By: jaqribei <jaqribei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:50:05 by jaqribei          #+#    #+#             */
-/*   Updated: 2024/05/10 14:55:23 by jaqribei         ###   ########.fr       */
+/*   Updated: 2024/05/10 18:57:39 by jaqribei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,15 @@ void	add_token(char *line)
 	t_mini	*control;
 	t_token	*new;
 	t_token	*last;
-	
+
+	if (!line)
+		return ;
 	control = get_mini_control();
 	new = ft_calloc(1, sizeof(t_token));
 	if (!new)
 		exit(EXIT_FAILURE);
-	new->identifier = ft_strndup(line, 2);
-	new->args = ft_split(line + 2, ' ');
+	new->identifier = ft_substr(line, 0, (ft_strchr(line, ' ') - line));
+	new->args = ft_split(line + (ft_strchr(line, ' ') - line), ' ');
 	new->next = NULL;
 	if (!control->tokens)
 		control->tokens = new;
@@ -55,11 +57,11 @@ void	free_tokens(void)
 	control->tokens = NULL;
 }
 
-void print_tokens(void)
+void	print_tokens(void)
 {
-	t_mini *control;
-	t_token *current;
-	int i;
+	t_mini	*control;
+	t_token	*current;
+	int		i;
 
 	control = get_mini_control();
 	current = control->tokens;
@@ -75,3 +77,47 @@ void print_tokens(void)
 		current = current->next;
 	}
 }
+
+int	process_type_token(char *line)
+{
+	if (!line)
+		return (0);
+	if (ft_strncmp("A", line, 1) == 0)
+		add_token(line);
+	else if (ft_strncmp("C", line, 1) == 0)
+		add_token(line);
+	else if (ft_strncmp("L", line, 1) == 0)
+		add_token(line);
+	else if (ft_strncmp("sp", line, 2) == 0)
+		add_token(line);
+	else if (ft_strncmp("pl", line, 2) == 0)
+		add_token(line);
+	else if (ft_strncmp("cy", line, 2) == 0)
+		add_token(line);
+	return (0);
+}
+
+void	tokenize_scene(char *file)
+{
+	int		fd;
+	char	*line;
+
+	fd = read_scene(file);
+	line = get_next_line(fd);
+	if (!line)
+		exit(ft_printf("Error\n%s\n", "Empty scene"));
+	while (line != NULL)
+	{
+		process_type_token(line);
+		// if (process_type_token(line) == 0)
+		// {
+		// 	free_tokens();
+		// 	exit(ft_printf("Error\n%s\n", "Invalid scene"));
+		// }
+		free(line);
+		line = get_next_line(fd);
+	}
+	close(fd);
+	return ;
+}
+
