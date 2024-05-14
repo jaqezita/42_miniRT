@@ -6,7 +6,7 @@
 /*   By: jaqribei <jaqribei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 11:36:10 by jaqribei          #+#    #+#             */
-/*   Updated: 2024/05/10 14:25:07 by jaqribei         ###   ########.fr       */
+/*   Updated: 2024/05/14 01:10:38 by jaqribei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ t_mini	*get_mini_control(void)
 int	main(int argc, char **argv)
 {
 	check_args(argc, argv);
-	process_scene_file(argv[1]);
+	tokenize_scene(argv[1]);
+	validate_scene();
 	print_tokens();
 	free_tokens();
 	manage_window();
