@@ -6,7 +6,7 @@
 /*   By: jaqribei <jaqribei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 17:13:22 by jaqribei          #+#    #+#             */
-/*   Updated: 2024/05/10 18:36:10 by jaqribei         ###   ########.fr       */
+/*   Updated: 2024/05/14 01:14:09 by jaqribei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,28 +96,15 @@ void		check_args(int argc, char **argv);
 //window
 void		manage_window(void);
 
-//parser
-int			read_scene(char *file);
-void		split_scene_lines(int fd, char *file);
-void		print_scene_lines(char **line, char *file);
-void		process_type(char *line);
-void		process_ambient(char *line);
-int			process_scene_file(char *file);
-void		process_camera(char *line);
-void		process_light(char *line);
-void		process_sphere(char *line);
-void		process_cylinder(char *line);
-void		process_plane(char *line);
-void		validate_identifier(void);
-
 //tokens
 void		add_token(char *line);
 void		free_tokens(void);
 void		print_tokens(void);
-int			process_type_token(char *line);
 void		tokenize_scene(char *file);
+
+//parser
+int			read_scene(char *file);
+void		validate_identifier(void);
 void		validate_scene(void);
-
-
 
 #endif
