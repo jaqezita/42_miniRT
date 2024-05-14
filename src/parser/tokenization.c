@@ -6,7 +6,7 @@
 /*   By: jaqribei <jaqribei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 14:50:05 by jaqribei          #+#    #+#             */
-/*   Updated: 2024/05/10 18:57:39 by jaqribei         ###   ########.fr       */
+/*   Updated: 2024/05/14 01:11:47 by jaqribei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	add_token(char *line)
 	t_mini	*control;
 	t_token	*new;
 	t_token	*last;
+	char	**splitted;
 
 	if (!line)
 		return ;
@@ -24,8 +25,10 @@ void	add_token(char *line)
 	new = ft_calloc(1, sizeof(t_token));
 	if (!new)
 		exit(EXIT_FAILURE);
-	new->identifier = ft_substr(line, 0, (ft_strchr(line, ' ') - line));
-	new->args = ft_split(line + (ft_strchr(line, ' ') - line), ' ');
+	splitted = ft_split(line, ' ');
+	new->identifier = ft_strdup(splitted[0]);
+	ft_free_string_array(splitted);
+	new->args = ft_split(line + ft_strlen(new->identifier), ' ');
 	new->next = NULL;
 	if (!control->tokens)
 		control->tokens = new;
@@ -49,8 +52,8 @@ void	free_tokens(void)
 	while (token)
 	{
 		next = token->next;
-		ft_free_string_array(token->args);
 		free(token->identifier);
+		ft_free_string_array(token->args);
 		free(token);
 		token = next;
 	}
@@ -78,29 +81,11 @@ void	print_tokens(void)
 	}
 }
 
-int	process_type_token(char *line)
-{
-	if (!line)
-		return (0);
-	if (ft_strncmp("A", line, 1) == 0)
-		add_token(line);
-	else if (ft_strncmp("C", line, 1) == 0)
-		add_token(line);
-	else if (ft_strncmp("L", line, 1) == 0)
-		add_token(line);
-	else if (ft_strncmp("sp", line, 2) == 0)
-		add_token(line);
-	else if (ft_strncmp("pl", line, 2) == 0)
-		add_token(line);
-	else if (ft_strncmp("cy", line, 2) == 0)
-		add_token(line);
-	return (0);
-}
-
 void	tokenize_scene(char *file)
 {
 	int		fd;
 	char	*line;
+	int		i;
 
 	fd = read_scene(file);
 	line = get_next_line(fd);
@@ -108,16 +93,14 @@ void	tokenize_scene(char *file)
 		exit(ft_printf("Error\n%s\n", "Empty scene"));
 	while (line != NULL)
 	{
-		process_type_token(line);
-		// if (process_type_token(line) == 0)
-		// {
-		// 	free_tokens();
-		// 	exit(ft_printf("Error\n%s\n", "Invalid scene"));
-		// }
+		i = 0;
+		while (line[i] == ' ' || line[i] == '\n')
+			i++;
+		if (line[i])
+			add_token(line + i);
 		free(line);
 		line = get_next_line(fd);
 	}
 	close(fd);
 	return ;
 }
-
