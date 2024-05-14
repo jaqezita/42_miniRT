@@ -6,7 +6,7 @@
 #    By: jaqribei <jaqribei@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/18 12:28:36 by jaqribei          #+#    #+#              #
-#    Updated: 2024/05/10 15:45:02 by jaqribei         ###   ########.fr        #
+#    Updated: 2024/05/14 00:29:42 by jaqribei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -96,7 +96,7 @@ gdb: re
 valgrind: re
 	@valgrind --leak-check=full --show-leak-kinds=all --suppressions=mlx.sup ./$(NAME) scenes/example.rt
 
-run: re
+run: all
 	@./$(NAME) scenes/example.rt
 
 .PHONY: all libft bonus clean fclean re valgrind norm gdb mlx
