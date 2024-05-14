@@ -6,7 +6,7 @@
 /*   By: jaqribei <jaqribei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 15:35:28 by jaqribei          #+#    #+#             */
-/*   Updated: 2024/05/10 18:57:44 by jaqribei         ###   ########.fr       */
+/*   Updated: 2024/05/14 01:12:14 by jaqribei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	validate_identifier(void)
 
 	control = get_mini_control();
 	token = control->tokens;
-	while(token)
+	while (token)
 	{
 		if (!is_identifier(token->identifier))
 		{
@@ -44,10 +44,5 @@ void	validate_scene(void)
 	t_mini	*control;
 
 	control = get_mini_control();
-	// if (process_type_token(line) == 0)
-	// {
-	// 	free_tokens();
-	// 	exit(ft_printf("Error\n%s\n", "Invalid scene"));
-	// }
 	validate_identifier();
 }
