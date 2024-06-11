@@ -6,7 +6,7 @@
 /*   By: jaqribei <jaqribei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 18:48:14 by jaqribei          #+#    #+#             */
-/*   Updated: 2024/06/06 03:30:16 by jaqribei         ###   ########.fr       */
+/*   Updated: 2024/06/10 19:01:55 by jaqribei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include "libassert.h"
 
 # define EPSILON 0.00001
+
 
 typedef struct	s_tuple
 {
@@ -49,6 +50,7 @@ typedef struct	s_sphere
 	double		radius;
 	int			id;
 }				t_sphere;
+
 typedef struct	s_discriminant
 {
 	double		a;
@@ -56,12 +58,29 @@ typedef struct	s_discriminant
 	double		c;
 	double		discriminant;
 }				t_discriminant;
+
 typedef struct	s_intersec
 {
+	int			type;
 	int			count;
 	double		t[2];
+	t_sphere	*sphere;
+	// t_plane		*plane;
+	// t_cylinder	*cylinder;
 }				t_intersec;
 
+typedef struct s_intersections
+{
+	int							type;
+	double						t;
+	t_sphere					*sphere;
+	// t_plane					*plane;
+	// t_cylinder				*cylinder;
+	t_ray						ray;
+	t_tuple						point;
+	struct s_intersections		*next;
+	
+}								t_intersections;
 
 
 typedef struct	s_rt
@@ -120,6 +139,8 @@ t_intersec	intersect(t_ray ray, t_sphere sphere, t_discriminant discriminant);
 t_discriminant	calc_discriminant(t_ray ray, t_sphere sphere);
 
 t_tuple sphere_to_ray(t_ray ray, t_sphere sphere);
+t_intersections	*intersection(double t, t_sphere *s);
+
 
 
 

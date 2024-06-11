@@ -6,7 +6,7 @@
 /*   By: jaqribei <jaqribei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 18:45:46 by jaqribei          #+#    #+#             */
-/*   Updated: 2024/06/06 03:14:26 by jaqribei         ###   ########.fr       */
+/*   Updated: 2024/06/10 19:02:04 by jaqribei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1205,6 +1205,19 @@ int	main(void)
 	else
 		printf("\33[1;31mFAIL\033[0m\n");
 		
+
+
+	printf("\n\033[1;35mAn intersection encapsulates t and object\033[0m\n");
+	t_sphere	sphere_intersec = create_sphere();
+	t_intersections	intersec = *intersection(3.5, &sphere_intersec);
+	// printf("count: %d\n", intersec.t);
+	printf("t: %.2f\n", intersec.t);
+	printf("object: %p\n", intersec.sphere);
+	if (intersec.t == 1 && intersec.t == 3.5 && intersec.sphere == &sphere_intersec)
+		printf("\33[1;32mOK\033[0m\n");
+	else
+		printf("\33[1;31mFAIL\033[0m\n");
+	
 
 	
 	return (0);
