@@ -6,7 +6,7 @@
 /*   By: jaqribei <jaqribei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 17:13:22 by jaqribei          #+#    #+#             */
-/*   Updated: 2024/06/11 01:54:15 by jaqribei         ###   ########.fr       */
+/*   Updated: 2024/06/17 21:44:28 by jaqribei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@
 # include "../libs/MLX42/include/MLX42/MLX42.h"
 
 # define EPSILON 0.00001
-# define FALSE 0
 # define TRUE 1
+# define ALMOST 0
+# define FALSE -1
 
 //OBJETOS
 typedef struct s_plane
@@ -86,23 +87,34 @@ typedef struct s_sphere
 	t_tuple		center;
 	double		radius;
 	int			id;
+	t_matrix	inverse;
+	t_matrix	transpose;
 }				t_sphere;
+
+typedef struct s_discriminant
+{
+	double		a;
+	double		b;
+	double		c;
+	double		discriminant;
+}				t_discriminant;
+
 typedef struct s_intersec
 {
 	int			count;
 	double		t[2];
 }				t_intersec;
+
 typedef struct s_intersection
 {
+	int						id;
 	// DADOS DO OBJETO
-	enum e_obj_type			type;
+	enum e_obj_type			objtype;
 	void					*obj;
-
 	// DADOS DO CONTATO/INTERSECÇÃO
 	t_intersec				intersect;
 	double					time;
 	int						hitcontact;
-
 	// NAVEGAÇÃO PELA EXTRUTURA
 	struct s_intersection	*next;
 	struct s_intersection	*before;
@@ -115,13 +127,12 @@ typedef struct s_intersections
 
 }							t_intersections;
 
-typedef struct	s_discriminant
-{
-	double		a;
-	double		b;
-	double		c;
-	double		discriminant;
-}				t_discriminant;
+// typedef struct s_intersections
+// {
+// 	t_list			**head;
+// 	int				count;
+// }					t_intersections;
+
 typedef struct s_token
 {
 	char			*identifier;
@@ -204,10 +215,10 @@ void				*create_t_cube(void);
 void				*create_t_pyramid(void);
 void				*create_t_sphere(void);
 
-t_intersection		*create_intersection(e_obj_type type);
+t_intersection		*create_intersection(enum e_obj_type type, int id);
 t_intersections		*create_intersections(void);
 t_intersections		*get_list_intersections(int action);
-int					add_last_intersections(t_intersections *intersections, e_obj_type type);
+int					add_last_intersections(t_intersections *intersections, enum e_obj_type type, int id);
 t_intersection		*get_last_intersec(void);
 void				*get_last_intersected_obj(void);
 

@@ -6,7 +6,7 @@
 #    By: jaqribei <jaqribei@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/18 12:28:36 by jaqribei          #+#    #+#              #
-#    Updated: 2024/05/14 00:29:42 by jaqribei         ###   ########.fr        #
+#    Updated: 2024/06/17 21:40:46 by jaqribei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,6 +50,12 @@ src += $(addprefix matrices_transformations/, creating_matrix_transformations.c\
 src += $(addprefix parser/, manage_window.c \
 							parser.c \
 							tokenization.c)
+
+src += $(addprefix ray_casting/, hit.c \
+								rays.c \
+								intersections.c \
+								intersection_utils.c \
+								sphere.c)
 
 
 #******************************************************************************#

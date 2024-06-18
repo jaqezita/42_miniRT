@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaqribei <jaqribei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/10 21:07:15 by jaqribei          #+#    #+#             */
-/*   Updated: 2024/06/11 04:20:20 by jaqribei         ###   ########.fr       */
+/*   Created: 2024/06/13 14:55:27 by jaqribei          #+#    #+#             */
+/*   Updated: 2024/06/17 21:48:01 by jaqribei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,11 @@ t_tuple	sphere_to_ray(t_ray ray, t_sphere sphere)
 	return (result);
 }
 
-t_discriminant	calc_discriminant(t_ray r, t_sphere sphere)
-{
-	t_discriminant	discriminant;
+// t_ray	transform_ray(t_ray ray, t_matrix matrix)
+// {
+// 	_ray	result;
 
-	discriminant.a = dot_product(r.direction, r.direction);
-	discriminant.b = 2 * dot_product(r.direction, sphere_to_ray(r, sphere));
-	discriminant.c = dot_product(sphere_to_ray(r, sphere), \
-	sphere_to_ray(r, sphere)) - 1;
-	discriminant.discriminant = pow(discriminant.b, 2) - \
-	(4 * discriminant.a * discriminant.c);
-	return (discriminant);
-}
+// 	result.origin = multiply_matrix_by_tuple(matrix, ray.origin);
+// 	result.direction = multiply_matrix_by_tuple(matrix, ray.direction);
+// 	return (result);
+// }

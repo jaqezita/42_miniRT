@@ -6,17 +6,52 @@
 /*   By: jaqribei <jaqribei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 01:43:13 by jaqribei          #+#    #+#             */
-/*   Updated: 2024/06/11 04:27:18 by jaqribei         ###   ########.fr       */
+/*   Updated: 2024/06/17 21:51:47 by jaqribei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	add_last_intersections(t_intersections *intersections, t_obj_type type)
+void	*get_last_intersected_obj(void)
+{
+	t_intersections	*intersections;
+
+	intersections = get_list_intersections(1);
+	return (intersections->end->obj);
+}
+
+t_intersection	*get_last_intersec(void)
+{
+	t_intersections	*intersections;
+
+	intersections = get_list_intersections(1);
+	return (intersections->end);
+}
+
+t_intersections	*get_list_intersections(int action)
+{
+	static t_intersections	*intersections;
+
+	if (action == 0)
+	{
+		intersections = create_intersections();
+		if (!intersections)
+			return (NULL);
+		else
+			return (intersections);
+	}
+	if (action > 0)
+		return (intersections);
+	free(intersections);
+	intersections = NULL;
+	return (NULL);
+}
+
+int	add_last_intersections(t_intersections *intersections, enum e_obj_type type, int id)
 {
 	t_intersection	*node;
 
-	node = create_intersection(type);
+	node = create_intersection(type, id);
 	if (!node)
 	{
 		printf("\n FALSE - add_last_intersections\n");
@@ -36,55 +71,8 @@ int	add_last_intersections(t_intersections *intersections, t_obj_type type)
 	return (TRUE);
 }
 
-t_discriminant	calc_discriminant_danilo(t_tuple position, t_ray ray, \
-t_sphere sphere)
-{
-	t_discriminant	discriminant;
-	t_tuple			sphere_to_position;
-
-	sphere_to_position = subtract_tuples(position, sphere.center);
-	discriminant.a = dot_product(ray.direction, ray.direction);
-	discriminant.b = 2 * dot_product(ray.direction, sphere_to_position);
-	discriminant.c = dot_product(sphere_to_position, sphere_to_position) - 1;
-	discriminant.discriminant = pow(discriminant.b, 2) - \
-	(4 * discriminant.a * discriminant.c);
-	return (discriminant);
-}
-
-t_intersec	intersect_danilo(double time, t_ray ray, \
-t_intersection *intersection_element)
-{
-	double				t1;
-	double				t2;
-	t_intersec			intersec;
-	t_discriminant		discriminant;
-	t_tuple				ray_position;
-	t_sphere			sphere;
-
-	sphere = *(t_sphere *)(intersection_element->obj);
-	ray_position = position(ray, time);
-	discriminant = calc_discriminant_danilo(ray_position, ray, sphere);
-	if (discriminant.discriminant < 0)
-	{
-		intersection_element->hitcontact = NO_HIT;
-		return (intersec);
-	}
-	if (discriminant.discriminant == 0)
-		intersection_element->hitcontact = ONE_HIT;
-	if (discriminant.discriminant > 0)
-		intersection_element->hitcontact = TWO_HIT;
-	intersec.t[0] = (-1.0 * discriminant.b - sqrt(discriminant.discriminant)) \
-	/ (2.0 * discriminant.a);
-	intersec.t[1] = (-1.0 * discriminant.b + sqrt(discriminant.discriminant)) \
-	/ (2.0 * discriminant.a);
-	intersec.count = 2;
-	return (intersec);
-}
-
-void	calc_intersection(t_ray ray, t_intersection *intersection_element, \
-double time)
+void	calc_intersection(t_ray ray, t_intersection *intersection_element, double time)
 {
 	intersection_element->time = time;
-	intersection_element->intersect = intersect_danilo(time, ray, \
-	intersection_element);
+	intersection_element->intersect = intersect_danilo(time, ray, intersection_element);
 }
